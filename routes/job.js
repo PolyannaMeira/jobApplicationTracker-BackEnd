@@ -47,8 +47,5 @@ router.get('/jobs/search', async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
-// router.get('/jobs', async function (req, res, next) {
-//     res.json(await jobControllers.getMyJobs());
-// });
 
 export default router;
