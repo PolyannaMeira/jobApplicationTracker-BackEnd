@@ -9,6 +9,7 @@ router.get('/jobs', async (req, res) => {
         res.json(jobs);
     } catch (error) {
         res.status(500).json({ error: 'Server error' });
+    }
     });
 
 router.get('/jobs/filter', async (req, res) => {
