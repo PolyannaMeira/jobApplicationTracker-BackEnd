@@ -1,4 +1,4 @@
-import { getById, get, update, deleteById } from '../models/job.js';
+import { getById, get, update, deleteById, searchJobs } from '../models/job.js';
 
 const jobControllers = {
     getAllJobs: async (req, res) => {
@@ -43,6 +43,16 @@ const jobControllers = {
             return res.send({ message: 'Job deleted successfully' });
         } catch (error) {
             console.error(error);
+        }
+    },
+    searchJobs: async (req, res) => {
+        try {
+            const query = req.query.query.toLowerCase();
+            const filteredJobs = await searchJobs(query);
+            return res.send(filteredJobs);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Server Error');
         }
     }
 };
