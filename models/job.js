@@ -49,5 +49,12 @@ const deleteById = async (id) => {
     const results = await query('DELETE FROM jobs WHERE id = ?', [id]);
     return results;
 };
+const searchJobs = async (queryString) => {
+    const results = await query(
+        'SELECT * FROM jobs WHERE companyName LIKE ? OR jobRole LIKE ?',
+        [`%${queryString}%`, `%${queryString}%`]
+    );
+    return results;
+};
 
-export { get, getById, update, deleteById };
+export { get, getById, update, deleteById, searchJobs };
