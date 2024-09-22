@@ -18,6 +18,26 @@ const jobControllers = {
             console.error(error);
         }
     },
+    createJobById: async (req, res) => {
+        try {
+            const id = req.params.id;
+            console.log(req)
+            const { companyName, interviewDate, jobRole, salary, jobUrl, date, location, status, attachment, notes } = req.body;
+            // Validation
+            if ((!companyName, !interviewDate, !jobRole, !salary, !jobUrl, !date, !location, !status, !attachment, !notes )) {
+                console.log(
+                    'companyName, interviewDate, jobRole, salary is required'
+                );
+                return;
+            }
+            await create(id, companyName, interviewDate, jobRole, salary, date, location, status, attachment, notes );
+            const job = await getById(id);
+            return res.send(job);
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     updateJobById: async (req, res) => {
         try {
             const id = req.params.id;

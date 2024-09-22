@@ -27,6 +27,17 @@ const getById = async (id) => {
     return results;
 };
 
+export const create = async (companyName, interviewDate, jobRole, salary, date, location, status, attachment, notes) => {
+    try {
+        
+        const createJobProfile = await query(`INSERT INTO jobs
+    (companyName, interviewDate, jobRole, salary, date, location, status, attachment, notes) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`, [companyName, interviewDate, jobRole, salary, date, location, status, attachment, notes]);
+        return createJobProfile;
+    } catch (err){}
+};
+
+
 const update = async (
     id,
     companyName,
@@ -45,6 +56,7 @@ const update = async (
     );
     return results;
 };
+
 const deleteById = async (id) => {
     const results = await query('DELETE FROM jobs WHERE id = ?', [id]);
     return results;

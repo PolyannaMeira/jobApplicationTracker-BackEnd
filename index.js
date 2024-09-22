@@ -6,7 +6,7 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 // import routes
-import recipeRoutes from './routes/recipe.js';
+
 import jobRoutes from './routes/job.js';
 
 // set port
@@ -29,7 +29,7 @@ app.use(express.static(path.join(PATH, 'public')));
 
 // create tables
 // createUserTable();
-// createRecipeTable();
+
 
 // use routes
 // app.use(userRoutes);
@@ -43,7 +43,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(recipeRoutes);
+
 app.use(jobRoutes);
 
 // error
