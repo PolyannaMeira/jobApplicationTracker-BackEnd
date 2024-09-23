@@ -1,6 +1,8 @@
 
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
+
 
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -18,6 +20,8 @@ const PATH = dirname(__filename);
 
 // initialize express
 const app = express();
+
+app.use(cors()); 
 
 // parse body and cookies
 app.use(express.json());

@@ -1,4 +1,11 @@
-import { getById, get, update, deleteById, searchJobs } from '../models/job.js';
+import {
+    getById,
+    get,
+    create,
+    update,
+    deleteById,
+    searchJobs
+} from '../models/job.js';
 
 const jobControllers = {
     getAllJobs: async (req, res) => {
@@ -18,21 +25,35 @@ const jobControllers = {
             console.error(error);
         }
     },
-    createJobById: async (req, res) => {
+    createJob: async (req, res) => {
         try {
-            const id = req.params.id;
-            console.log(req)
-            const { companyName, interviewDate, jobRole, salary, jobUrl, date, location, status, attachment, notes } = req.body;
-            // Validation
-            if ((!companyName, !interviewDate, !jobRole, !salary, !jobUrl, !date, !location, !status, !attachment, !notes )) {
-                console.log(
-                    'companyName, interviewDate, jobRole, salary is required'
-                );
-                return;
-            }
-            await create(id, companyName, interviewDate, jobRole, salary, date, location, status, attachment, notes );
-            const job = await getById(id);
-            return res.send(job);
+            const {
+                companyName,
+                jobRole,
+                salary,
+                date,
+                location,
+                status,
+                notes
+            } = req.body;
+            console.log(req.body)
+            
+            const createNewJob = await create(
+                companyName,
+                jobRole,
+                salary,
+                date,
+                location,
+                status,
+                notes
+            );
+
+             
+            const id = createNewJob.insertId;    
+        
+            const newJob = await getById(id);
+            
+            return res.send(newJob);
         } catch (error) {
             console.error(error);
         }
@@ -41,12 +62,10 @@ const jobControllers = {
     updateJobById: async (req, res) => {
         try {
             const id = req.params.id;
-            const { companyName, interviewDate, jobRole, salary } = req.body;
+            const { companyName, jobRole, salary } = req.body;
             // Validation
-            if ((!companyName, !interviewDate, !jobRole, !salary)) {
-                console.log(
-                    'companyName, interviewDate, jobRole, salary is required'
-                );
+            if ((!companyName, !jobRole, !salary)) {
+                console.log('companyName, jobRole, salary is required');
                 return;
             }
             await update(id, companyName, interviewDate, jobRole, salary);
