@@ -1,8 +1,7 @@
 import query from '../config/db.js';
 
 const createDeviceTable = async () => {
-    (await query) <
-        ResultSetHeader >
+    (await query) 
         `
         CREATE TABLE IF NOT EXISTS devices (
             id INT NOT NULL AUTO_INCREMENT,
@@ -27,21 +26,25 @@ const getById = async (id) => {
     return results;
 };
 
-export const create = async (companyName, interviewDate, jobRole, salary, date, location, status, attachment, notes) => {
+
+const create = async (companyName, jobRole, salary, date, location, status, notes) => {
     try {
-        
         const createJobProfile = await query(`INSERT INTO jobs
-    (companyName, interviewDate, jobRole, salary, date, location, status, attachment, notes) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`, [companyName, interviewDate, jobRole, salary, date, location, status, attachment, notes]);
+            (companyName, jobRole, salary, date, location, status, notes) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)`, 
+            [companyName, jobRole, salary, date, location, status, notes]);
         return createJobProfile;
-    } catch (err){}
+    } catch (err) {
+        console.error('Error creating job profile:', err);
+        throw err;
+    }
 };
+
 
 
 const update = async (
     id,
     companyName,
-    interviewDate,
     jobRole,
     salary,
     status,
@@ -51,8 +54,17 @@ const update = async (
     notes
 ) => {
     const results = await query(
-        'UPDATE jobs SET companyName = ?, interviewDate = ?, jobRole = ?, salary = ? WHERE id = ?',
-        [companyName, interviewDate, jobRole, salary, id]
+        `UPDATE jobs SET companyName,  jobRole, salary, date, location, status, attachment, notes)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [id, 
+            companyName, 
+            jobRole, 
+            salary, 
+            status,
+            attachment,
+            jobUrl,
+            location,
+            notes]
     );
     return results;
 };
@@ -69,4 +81,4 @@ const searchJobs = async (queryString) => {
     return results;
 };
 
-export { get, getById, update, deleteById, searchJobs };
+export { get, getById, create, update, deleteById, searchJobs };
