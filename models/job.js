@@ -27,12 +27,12 @@ const getById = async (id) => {
 };
 
 
-const create = async (companyName, jobRole, salary, date, location, status, notes) => {
+const create = async (companyName, jobRole, salary, interviewDate, location, status, notes) => {
     try {
         const createJobProfile = await query(`INSERT INTO jobs
-            (companyName, jobRole, salary, date, location, status, notes) 
+            (companyName, jobRole, salary, interviewDate, location, status, notes) 
             VALUES (?, ?, ?, ?, ?, ?, ?)`, 
-            [companyName, jobRole, salary, date, location, status, notes]);
+            [companyName, jobRole, salary, interviewDate, location, status, notes]);
         return createJobProfile;
     } catch (err) {
         console.error('Error creating job profile:', err);
@@ -46,6 +46,7 @@ const update = async (
     id,
     companyName,
     jobRole,
+    interviewDate,
     salary,
     status,
     attachment,
@@ -54,11 +55,12 @@ const update = async (
     notes
 ) => {
     const results = await query(
-        `UPDATE jobs SET companyName,  jobRole, salary, date, location, status, attachment, notes)
+        `UPDATE jobs SET companyName,  jobRole, salary, interviewDate, location, status, attachment, notes)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [id, 
             companyName, 
             jobRole, 
+            interviewDate,
             salary, 
             status,
             attachment,

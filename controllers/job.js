@@ -31,7 +31,7 @@ const jobControllers = {
                 companyName,
                 jobRole,
                 salary,
-                date,
+                interviewDate,
                 location,
                 status,
                 notes
@@ -42,7 +42,7 @@ const jobControllers = {
                 companyName,
                 jobRole,
                 salary,
-                date,
+                interviewDate,
                 location,
                 status,
                 notes
@@ -62,9 +62,9 @@ const jobControllers = {
     updateJobById: async (req, res) => {
         try {
             const id = req.params.id;
-            const { companyName, jobRole, salary } = req.body;
+            const { companyName, jobRole, interviewDate, salary } = req.body;
             // Validation
-            if ((!companyName, !jobRole, !salary)) {
+            if ((!companyName, !jobRole, !interviewDate, !salary)) {
                 console.log('companyName, jobRole, salary is required');
                 return;
             }
