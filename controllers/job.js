@@ -62,6 +62,7 @@ const jobControllers = {
     updateJobById: async (req, res) => {
         try {
             const id = req.params.id;
+
             const {
                 companyName,
                 jobRole,
@@ -78,6 +79,7 @@ const jobControllers = {
                     .send({
                         error: 'companyName, jobRole, and salary are required'
                     });
+
             }
             const jobUpdate = await update(
                 id,
