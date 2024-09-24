@@ -9,7 +9,7 @@ const createJobTable = async () => {
             companyName VARCHAR(255) NOT NULL,
             jobRole VARCHAR(255),
             salary DECIMAL(10, 2),
-            date DATE,
+            interviewDate DATE,
             location VARCHAR(255),
             status VARCHAR(50),
             notes TEXT,
@@ -38,7 +38,7 @@ const create = async (
     companyName,
     jobRole,
     salary,
-    date,
+    interviewDate,
     location,
     status,
     notes
@@ -46,9 +46,9 @@ const create = async (
     try {
         const createJobProfile = await query(
             `INSERT INTO jobs
-            (companyName, jobRole, salary, date, location, status, notes) 
+            (companyName, jobRole, salary, interviewDate, location, status, notes) 
             VALUES (?, ?, ?, ?, ?, ?, ?)`,
-            [companyName, jobRole, salary, date, location, status, notes]
+            [companyName, jobRole, salary, interviewDate, location, status, notes]
         );
         return createJobProfile;
     } catch (err) {
@@ -62,24 +62,22 @@ const update = async (
     companyName,
     jobRole,
     salary,
-    date,
+    interviewDate,
     location,
     status,
-    attachment,
     notes
 ) => {
     const results = await query(
         `UPDATE jobs 
-        SET companyName = ?, jobRole = ?, salary = ?, date = ?, location = ?, status = ?, attachment = ?, notes = ?
+        SET companyName = ?, jobRole = ?, salary = ?, interviewDate = ?, location = ?, status = ?, notes = ?
         WHERE id = ?`,
         [
             companyName,
             jobRole,
             salary,
-            date,
+            interviewDate,
             location,
             status,
-            attachment,
             notes,
             id
         ]

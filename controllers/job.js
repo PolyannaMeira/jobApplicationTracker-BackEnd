@@ -32,7 +32,7 @@ const jobControllers = {
                 companyName,
                 jobRole,
                 salary,
-                date,
+                interviewDate,
                 location,
                 status,
                 notes
@@ -43,7 +43,7 @@ const jobControllers = {
                 companyName,
                 jobRole,
                 salary,
-                date,
+                interviewDate,
                 location,
                 status,
                 notes
@@ -66,7 +66,7 @@ const jobControllers = {
                 companyName,
                 jobRole,
                 salary,
-                date,
+                interviewDate,
                 location,
                 status,
                 notes
@@ -79,23 +79,21 @@ const jobControllers = {
                         error: 'companyName, jobRole, and salary are required'
                     });
             }
-
-            await update(
+            const jobUpdate = await update(
                 id,
                 companyName,
                 jobRole,
                 salary,
-                date,
+                interviewDate,
                 location,
                 status,
-                null,
                 notes
             );
-            const job = await getById(id);
-            return res.send(job);
+           
+            const updatedJob = await getById(id);
+            return res.send(updatedJob);
         } catch (error) {
             console.error(error);
-            return res.status(500).send({ error: 'Unable to update job' });
         }
     },
 
