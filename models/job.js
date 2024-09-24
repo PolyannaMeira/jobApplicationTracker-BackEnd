@@ -34,7 +34,6 @@ const getById = async (id) => {
     return results;
 };
 
-
 const create = async (
     companyName,
     jobRole,
@@ -49,7 +48,15 @@ const create = async (
             `INSERT INTO jobs
             (companyName, jobRole, salary, interviewDate, location, status, notes) 
             VALUES (?, ?, ?, ?, ?, ?, ?)`,
-            [companyName, jobRole, salary, interviewDate, location, status, notes]
+            [
+                companyName,
+                jobRole,
+                salary,
+                interviewDate,
+                location,
+                status,
+                notes
+            ]
         );
 
         return createJobProfile;
@@ -65,13 +72,11 @@ const update = async (
     jobRole,
     interviewDate,
     salary,
-    interviewDate,
     location,
     status,
     notes
 ) => {
     const results = await query(
-
         `UPDATE jobs 
         SET companyName = ?, jobRole = ?, salary = ?, interviewDate = ?, location = ?, status = ?, notes = ?
         WHERE id = ?`,
