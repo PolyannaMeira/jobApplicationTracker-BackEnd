@@ -23,6 +23,7 @@ const jobControllers = {
             return res.send(job);
         } catch (error) {
             console.error(error);
+            return res.status(500).send({ error: 'Unable to retrieve jobs' });
         }
     },
     createJob: async (req, res) => {
@@ -36,8 +37,8 @@ const jobControllers = {
                 status,
                 notes
             } = req.body;
-            console.log(req.body)
-            
+            console.log(req.body);
+
             const createNewJob = await create(
                 companyName,
                 jobRole,
@@ -48,11 +49,10 @@ const jobControllers = {
                 notes
             );
 
-             
-            const id = createNewJob.insertId;    
-        
+            const id = createNewJob.insertId;
+
             const newJob = await getById(id);
-            
+
             return res.send(newJob);
         } catch (error) {
             console.error(error);
@@ -62,19 +62,43 @@ const jobControllers = {
     updateJobById: async (req, res) => {
         try {
             const id = req.params.id;
-            const { companyName, jobRole, salary } = req.body;
+            const {
+                companyName,
+                jobRole,
+                salary,
+                date,
+                location,
+                status,
+                notes
+            } = req.body;
             // Validation
-            if ((!companyName, !jobRole, !salary)) {
-                console.log('companyName, jobRole, salary is required');
-                return;
+            if (!companyName || !jobRole || !salary) {
+                return res
+                    .status(400)
+                    .send({
+                        error: 'companyName, jobRole, and salary are required'
+                    });
             }
-            await update(id, companyName, interviewDate, jobRole, salary);
+
+            await update(
+                id,
+                companyName,
+                jobRole,
+                salary,
+                date,
+                location,
+                status,
+                null,
+                notes
+            );
             const job = await getById(id);
             return res.send(job);
         } catch (error) {
             console.error(error);
+            return res.status(500).send({ error: 'Unable to update job' });
         }
     },
+
     deleteJobById: async (req, res) => {
         try {
             const id = req.params.id;

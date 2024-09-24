@@ -1,21 +1,29 @@
 import query from '../config/db.js';
 
-const createDeviceTable = async () => {
-    (await query) 
-        `
-        CREATE TABLE IF NOT EXISTS devices (
+const createJobTable = async () => {
+    try {
+        await query(`
+        CREATE TABLE IF NOT EXISTS jobs (
             id INT NOT NULL AUTO_INCREMENT,
             user_id INT NOT NULL,
-            companyName VARCHAR(50) NOT NULL,
+            companyName VARCHAR(255) NOT NULL,
+            jobRole VARCHAR(255),
+            salary DECIMAL(10, 2),
+            date DATE,
+            location VARCHAR(255),
+            status VARCHAR(50),
+            notes TEXT,
             created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             deleted TINYINT NOT NULL DEFAULT 0,
             PRIMARY KEY (id),
-            KEY user_id (user_id),
-            CONSTRAINT devices_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-    `;
+        `);
+    } catch (error) {
+        console.error('Error creating jobs table:', error);
+    }
 };
+
 const get = async () => {
     const results = await query('SELECT * FROM jobs');
     return results;
@@ -26,13 +34,22 @@ const getById = async (id) => {
     return results;
 };
 
-
-const create = async (companyName, jobRole, salary, date, location, status, notes) => {
+const create = async (
+    companyName,
+    jobRole,
+    salary,
+    date,
+    location,
+    status,
+    notes
+) => {
     try {
-        const createJobProfile = await query(`INSERT INTO jobs
+        const createJobProfile = await query(
+            `INSERT INTO jobs
             (companyName, jobRole, salary, date, location, status, notes) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)`, 
-            [companyName, jobRole, salary, date, location, status, notes]);
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [companyName, jobRole, salary, date, location, status, notes]
+        );
         return createJobProfile;
     } catch (err) {
         console.error('Error creating job profile:', err);
@@ -40,31 +57,32 @@ const create = async (companyName, jobRole, salary, date, location, status, note
     }
 };
 
-
-
 const update = async (
     id,
     companyName,
     jobRole,
     salary,
+    date,
+    location,
     status,
     attachment,
-    jobUrl,
-    location,
     notes
 ) => {
     const results = await query(
-        `UPDATE jobs SET companyName,  jobRole, salary, date, location, status, attachment, notes)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [id, 
-            companyName, 
-            jobRole, 
-            salary, 
+        `UPDATE jobs 
+        SET companyName = ?, jobRole = ?, salary = ?, date = ?, location = ?, status = ?, attachment = ?, notes = ?
+        WHERE id = ?`,
+        [
+            companyName,
+            jobRole,
+            salary,
+            date,
+            location,
             status,
             attachment,
-            jobUrl,
-            location,
-            notes]
+            notes,
+            id
+        ]
     );
     return results;
 };
