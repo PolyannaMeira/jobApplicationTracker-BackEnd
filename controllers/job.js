@@ -26,7 +26,8 @@ const jobControllers = {
             return res.status(500).send({ error: 'Unable to retrieve jobs' });
         }
     },
-    createJob: async (req, res) => {
+
+        createJob: async (req, res) => {
         try {
             const {
                 companyName,
@@ -37,7 +38,12 @@ const jobControllers = {
                 status,
                 notes
             } = req.body;
-            console.log(req.body);
+
+            console.log(req.body)
+            console.log(req.file)
+            
+            const attachment = req.file ? req.file.filename : null;
+
 
             const createNewJob = await create(
                 companyName,
@@ -46,9 +52,13 @@ const jobControllers = {
                 interviewDate,
                 location,
                 status,
-                notes
+                notes,
+                attachment 
             );
 
+
+                         
+            
             const id = createNewJob.insertId;
 
             const newJob = await getById(id);
