@@ -55,8 +55,8 @@ const update = async (
     id,
     companyName,
     jobRole,
-    interviewDate,
     salary,
+    interviewDate,
     location,
     status,
     notes
@@ -70,7 +70,6 @@ const update = async (
             jobRole,
             salary,
             interviewDate,
-
             location,
             status,
             notes,
