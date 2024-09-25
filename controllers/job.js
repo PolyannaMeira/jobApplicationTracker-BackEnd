@@ -83,14 +83,6 @@ const jobControllers = {
                 notes
             } = req.body;
             // Validation
-            if (!companyName || !jobRole || !salary) {
-                return res
-                    .status(400)
-                    .send({
-                        error: 'companyName, jobRole, and salary are required'
-                    });
-
-            }
             const jobUpdate = await update(
                 id,
                 companyName,
@@ -101,7 +93,12 @@ const jobControllers = {
                 status,
                 notes
             );
-           
+            // Check if the update was successful (affectedRows will tell if a row was updated)
+            if (jobUpdate.affectedRows === 0) {
+                return res
+                    .status(404)
+                    .send({ error: 'Job not found or no changes made' });
+            }
             const updatedJob = await getById(id);
             return res.send(updatedJob);
         } catch (error) {
