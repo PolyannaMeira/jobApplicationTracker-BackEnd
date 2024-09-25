@@ -25,7 +25,8 @@ const jobControllers = {
             console.error(error);
         }
     },
-    createJob: async (req, res) => {
+
+        createJob: async (req, res) => {
         try {
             const {
                 companyName,
@@ -37,7 +38,10 @@ const jobControllers = {
                 notes
             } = req.body;
             console.log(req.body)
+            console.log(req.file)
             
+            const attachment = req.file ? req.file.filename : null;
+
             const createNewJob = await create(
                 companyName,
                 jobRole,
@@ -45,10 +49,11 @@ const jobControllers = {
                 interviewDate,
                 location,
                 status,
-                notes
+                notes,
+                attachment 
             );
 
-             
+                         
             const id = createNewJob.insertId;    
         
             const newJob = await getById(id);

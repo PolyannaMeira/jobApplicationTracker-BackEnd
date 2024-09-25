@@ -27,12 +27,12 @@ const getById = async (id) => {
 };
 
 
-const create = async (companyName, jobRole, salary, interviewDate, location, status, notes) => {
+const create = async (companyName, jobRole, salary, interviewDate, location, attachment, status, notes) => {
     try {
         const createJobProfile = await query(`INSERT INTO jobs
-            (companyName, jobRole, salary, interviewDate, location, status, notes) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)`, 
-            [companyName, jobRole, salary, interviewDate, location, status, notes]);
+            (companyName, jobRole, salary, interviewDate, location, attachment, status, notes) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, 
+            [companyName, jobRole, salary, interviewDate, location, attachment, status, notes]);
         return createJobProfile;
     } catch (err) {
         console.error('Error creating job profile:', err);
