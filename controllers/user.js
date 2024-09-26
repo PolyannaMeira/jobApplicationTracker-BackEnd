@@ -8,11 +8,11 @@ import hashPassword from '../utils/hashPassword.js';
 import query from '../config/db.js';
 
 const userControllers = {
-    register: async () => {}
+    register: async () => {},
         
-    login: async () => {}
+    login: async () => {},
         
-    logout: async () => {};
+    logout: async () => {}
     };
 
 export default userControllers;
