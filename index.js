@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 // import routes
 
 import jobRoutes from './routes/job.js';
-import userRoutes from "./routes/user.js"
+
 
 // set port
 const PORT = process.env.PORT || 5000;
@@ -40,7 +40,7 @@ dotenv.config();
 
 
 // use routes
-app.use(userRoutes);
+
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
