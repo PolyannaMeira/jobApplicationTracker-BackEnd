@@ -34,15 +34,32 @@ const getById = async (id) => {
     return results;
 };
 
-
-
-const create = async (companyName, jobRole, salary, interviewDate, location, attachment, status, notes) => {
+const create = async (
+    companyName,
+    jobRole,
+    salary,
+    interviewDate,
+    location,
+    attachment,
+    status,
+    notes
+) => {
     try {
-        const createJobProfile = await query(`INSERT INTO jobs
+        const createJobProfile = await query(
+            `INSERT INTO jobs
             (companyName, jobRole, salary, interviewDate, location, attachment, status, notes) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, 
-            [companyName, jobRole, salary, interviewDate, location, attachment, status, notes]);
-
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            [
+                companyName,
+                jobRole,
+                salary,
+                interviewDate,
+                location,
+                attachment,
+                status,
+                notes
+            ]
+        );
 
         return createJobProfile;
     } catch (err) {
@@ -59,11 +76,12 @@ const update = async (
     interviewDate,
     location,
     status,
+    jobUrl,
     notes
 ) => {
     const results = await query(
         `UPDATE jobs 
-        SET companyName = ?, jobRole = ?, salary = ?, interviewDate = ?, location = ?, status = ?, notes = ?
+        SET companyName = ?, jobRole = ?, salary = ?, interviewDate = ?, location = ?, status = ?, jobUrl = ?, notes = ?
         WHERE id = ?`,
         [
             companyName,
@@ -72,6 +90,7 @@ const update = async (
             interviewDate,
             location,
             status,
+            jobUrl,
             notes,
             id
         ]

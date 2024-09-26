@@ -27,7 +27,7 @@ const jobControllers = {
         }
     },
 
-        createJob: async (req, res) => {
+    createJob: async (req, res) => {
         try {
             const {
                 companyName,
@@ -39,11 +39,10 @@ const jobControllers = {
                 notes
             } = req.body;
 
-            console.log(req.body)
-            console.log(req.file)
-            
-            const attachment = req.file ? req.file.filename : null;
+            console.log(req.body);
+            console.log(req.file);
 
+            const attachment = req.file ? req.file.filename : null;
 
             const createNewJob = await create(
                 companyName,
@@ -53,12 +52,9 @@ const jobControllers = {
                 location,
                 status,
                 notes,
-                attachment 
+                attachment
             );
 
-
-                         
-            
             const id = createNewJob.insertId;
 
             const newJob = await getById(id);
@@ -80,6 +76,7 @@ const jobControllers = {
                 interviewDate,
                 location,
                 status,
+                jobUrl,
                 notes
             } = req.body;
             // Validation
@@ -91,6 +88,7 @@ const jobControllers = {
                 interviewDate,
                 location,
                 status,
+                jobUrl,
                 notes
             );
             // Check if the update was successful (affectedRows will tell if a row was updated)
