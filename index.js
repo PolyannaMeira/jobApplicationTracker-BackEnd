@@ -2,7 +2,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-
+import dotenv from 'dotenv';
 
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url';
 // import routes
 
 import jobRoutes from './routes/job.js';
+import userRoutes from "./routes/user.js"
 
 // set port
 const PORT = process.env.PORT || 5000;
@@ -31,12 +32,15 @@ app.use(cookieParser());
 // Serve static files
 app.use(express.static(path.join(PATH, 'public')));
 
+// Load environment variables
+dotenv.config();
+
 // create tables
 // createUserTable();
 
 
 // use routes
-// app.use(userRoutes);
+app.use(userRoutes);
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');

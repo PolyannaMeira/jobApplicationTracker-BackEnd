@@ -1,9 +1,14 @@
 import express from 'express';
 import userControllers from '../controllers/user.js';
 
-const router = express.Router();
+const userRoutes = express.Router();
+
+userRoutes.post('/register', userControllers.register),
+userRoutes.post('/login', userControllers.login),
+userRoutes.post('/logout', userControllers.logout);
 
 
-// routes
 
-export default router;
+
+
+export default userRoutes;
