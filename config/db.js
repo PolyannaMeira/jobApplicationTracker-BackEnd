@@ -1,28 +1,26 @@
-import mysql from 'mysql2/promise';
+// db.js
+const { Pool } = require('pg');
+require('dotenv').config();
 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    connectionLimit: 10
+const pool = new Pool({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT || 5432,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  ssl: { rejectUnauthorized: false },
 });
 
-console.log('MySQL Pool created successfully');
+console.log('PostgreSQL Pool created successfully');
 
-// Create query
 const query = async (sql, values) => {
-    const connection = await pool.getConnection();
-    try {
-        const [results] = await connection.query(sql, values);
-        return results;
-    } catch (err) {
-        return err;
-    } finally {
-        if (connection) {
-            connection.release();
-        }
-    }
+  try {
+    const result = await pool.query(sql, values);
+    return result.rows; 
+  } catch (err) {
+    console.error('Query error:', err);
+    throw err;
+  }
 };
 
-export default query;
+module.exports = query;

@@ -10,7 +10,10 @@ import { fileURLToPath } from 'url';
 // import routes
 
 import jobRoutes from './routes/job.js';
+import userRoutes from './routes/user.js';
 
+// Load environment variables
+dotenv.config();
 
 // set port
 const PORT = process.env.PORT || 5000;
@@ -32,16 +35,6 @@ app.use(cookieParser());
 // Serve static files
 app.use(express.static(path.join(PATH, 'public')));
 
-// Load environment variables
-dotenv.config();
-
-// create tables
-// createUserTable();
-
-
-// use routes
-
-
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -52,7 +45,8 @@ app.use(function (req, res, next) {
 });
 
 
-app.use(jobRoutes);
+app.use('/jobs', jobRoutes);
+app.use('/users', userRoutes);
 
 // error
 app.use((err, req, res, next) => {
