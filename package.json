@@ -1,5 +1,5 @@
 {
-  "name": "recipes",
+  "name": "job-application-tracker-be",
   "type": "module",
   "version": "1.0.0",
   "description": "",
@@ -14,9 +14,9 @@
     "postinstall": "prisma generate"
     
   
-}
+},
 
-  },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",
