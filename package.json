@@ -1,5 +1,5 @@
 {
-  "name": "recipes",
+  "name": "job-application-tracker-be",
   "type": "module",
   "version": "1.0.0",
   "description": "",
@@ -12,10 +12,6 @@
     "dev": "node --watch --env-file=.env index.js",
     "format": "prettier --write ./",
     "postinstall": "prisma generate"
-    
-  
-}
-
   },
   "keywords": [],
   "author": "",
