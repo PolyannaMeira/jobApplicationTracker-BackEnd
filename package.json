@@ -10,7 +10,12 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch --env-file=.env index.js",
-    "format": "prettier --write ./"
+    "format": "prettier --write ./",
+    "postinstall": "prisma generate"
+    
+  
+}
+
   },
   "keywords": [],
   "author": "",
