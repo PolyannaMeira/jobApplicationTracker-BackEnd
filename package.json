@@ -12,11 +12,7 @@
     "dev": "node --watch --env-file=.env index.js",
     "format": "prettier --write ./",
     "postinstall": "prisma generate"
-    
-  
-},
-
-  
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
