@@ -25,7 +25,14 @@ const PATH = dirname(__filename);
 // initialize express
 const app = express();
 
-app.use(cors()); 
+app.use(cors({
+  origin: ['https://job-application-tracker-front-end-nu.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
+
 
 // parse body and cookies
 app.use(express.json());
@@ -35,14 +42,7 @@ app.use(cookieParser());
 // Serve static files
 app.use(express.static(path.join(PATH, 'public')));
 
-app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept'
-    );
-    next();
-});
+
 
 
 app.use('/jobs', jobRoutes);
