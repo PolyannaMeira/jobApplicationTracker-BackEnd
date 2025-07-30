@@ -44,10 +44,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/', (req, res) => {
-  // Redireciona para a rota de usuários
-  res.redirect('/users');
-});
 
 app.use('/jobs', jobRoutes);
 app.use('/users', userRoutes);
