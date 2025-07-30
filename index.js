@@ -60,7 +60,4 @@ app.use('*', (req, res) => {
     res.status(404).json({ message: 'Page is not found' });
 });
 
-// listen
-app.listen(PORT, () => {
-    console.log(`Server is up and running on port : ${PORT}`);
-});
+export default app;
