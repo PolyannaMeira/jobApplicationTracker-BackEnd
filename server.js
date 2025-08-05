@@ -21,7 +21,7 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:5173', // local
-  'https://job-application-tracker-front-4uwhfv6vp3-polyannas-projects.vercel.app' // produção
+  'https://job-application-tracker-front-end-nu.vercel.app' // produção
 ];
 
 app.use(cors({
