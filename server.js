@@ -17,14 +17,30 @@ const PATH = dirname(__filename);
 
 const app = express();
 
+
+
+const allowedOrigins = [
+  'http://localhost:5173', // local
+  'https://job-application-tracker-front-4uwhfv6vp3-polyannas-projects.vercel.app' // produção
+];
+
 app.use(cors({
-  origin: ['https://job-application-tracker-front-end-nu.vercel.app'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: function (origin, callback) {
+    // Permitir chamadas sem origin (como postman) ou de origens autorizadas
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 
-app.options('*', cors()); // 👈 isso trata os preflight CORS
+app.options('*', cors());
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -39,8 +55,13 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Internal Server Error' });
 });
 
+app.get('/', (req, res) => {
+  res.json({ message: 'Backend API is online' });
+});
+
+
 app.use('*', (req, res) => {
   res.status(404).json({ message: 'Page is not found' });
 });
 
-export default app; // 👈 necessário para Vercel funcionar
+export default app; 
