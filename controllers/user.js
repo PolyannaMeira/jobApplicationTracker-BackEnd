@@ -78,6 +78,7 @@ const userControllers = {
     return res.status(500).json({ message: 'Internal server error.' });
   }
 }
+
 ,
 getProfile: async (req, res) => {
   try {

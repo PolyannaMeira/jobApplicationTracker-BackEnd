@@ -40,6 +40,7 @@ app.use(cors({
 
 app.options('*', cors());
 
+console.log('DATABASE_URL:', process.env.DATABASE_URL);
 
 
 app.use(express.json());
